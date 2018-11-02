@@ -1,0 +1,67 @@
+/* 1. Handbag */
+
+var handbag = {
+	cosmetics: 100500,
+	gun: 'Smith & Wesson',
+	somethingElse: true
+};
+
+handbag.__proto__.put = function(thing){
+	Object.assign(handbag, thing);
+};
+
+handbag.__proto__.remove = function(thingName){
+	delete handbag[thingName];
+};
+
+handbag.put({condom: 'Just in case, I go to party'});
+handbag.remove('gun');
+
+console.log(handbag);
+
+/* Library Book */
+
+function LibraryBook(data){
+	var title = data.title,
+		year = data.year,
+		author = data.author,
+		readerName = data.readerName,
+		readerData = data.readerData;
+
+	function giveTheBook(client){
+		readerName = client;
+		readerData = new Date();
+	}
+
+	this.getBookInfo = function(){
+		console.log(readerData);
+	};
+
+	this.getTheBook = function(client){
+		if(readerName){
+			return null;
+		}
+		else{
+			giveTheBook(client);
+			return title;
+		}
+	};
+
+	this.returnBook = function(){
+		readerName = readerData = null;
+	};
+
+	return this;
+}
+
+var testBook = new LibraryBook({
+	title: 'Book title',
+	year: 1999,
+	author: 'Author Name',
+	readerName: '',
+	readerData: null
+});
+
+testBook.getTheBook('Vasia Pupkin');
+
+console.log(testBook);
